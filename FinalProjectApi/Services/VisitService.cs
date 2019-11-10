@@ -14,7 +14,7 @@ namespace FinalProjectApi.Services
         {
             _repository = repository;
         }
-        public IEnumerable<Visit> GetAllUsers()
+        public IEnumerable<Visit> GetAllVisits()
         {
             return _repository.GetAll();
         }

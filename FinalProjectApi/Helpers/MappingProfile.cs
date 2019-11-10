@@ -14,6 +14,8 @@ namespace FinalProjectApi.Helpers
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+            CreateMap<Visit, VisitDto>();
+            CreateMap<VisitDto, Visit>();
         }
     }
 
