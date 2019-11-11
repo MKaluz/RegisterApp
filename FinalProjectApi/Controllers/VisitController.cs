@@ -60,6 +60,18 @@ namespace FinalProjectApi.Controllers
             return NoContent();
         }
         [Authorize(Roles = Role.User)]
+        [HttpGet("available")]
+        public IActionResult ShowAvailableVisits()
+        {
+            var availableVisits = _visitService.GetAllAvailableVisits();
+            if (availableVisits == null)
+            {
+                return NotFound();
+            }
+            return new JsonResult(availableVisits);
+        }
+
+        [Authorize(Roles = Role.User)]
         [HttpPut("reserve/{visitId}")]
         public IActionResult ReserveVisit(int visitId)
         {

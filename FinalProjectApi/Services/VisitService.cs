@@ -3,20 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinalProjectApi.Entity;
+using FinalProjectApi.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProjectApi.Services
 {
     public class VisitService : IVisitService
     {
         private readonly IRepository<Visit> _repository;
+        private readonly DataContext _context;
 
-        public VisitService(IRepository<Visit> repository)
+
+        public VisitService(IRepository<Visit> repository, DataContext context)
         {
             _repository = repository;
+            _context = context;
         }
         public IEnumerable<Visit> GetAllVisits()
         {
             return _repository.GetAll();
+        }
+
+        public IEnumerable<Visit> GetAllAvailableVisits()
+        {
+            return _context.Visits.Include("VisitDate").Include("VisitLocation").Include("VisitType").Where(v => v.VisitDate.Start > DateTime.UtcNow && v.Patient == 0)
+                .OrderByDescending(v => v.VisitDate.Start);
+
         }
 
         public Visit GetVisitById(int id)
