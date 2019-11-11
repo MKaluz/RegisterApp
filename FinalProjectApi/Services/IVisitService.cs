@@ -10,6 +10,7 @@ namespace FinalProjectApi.Services
     {
         IEnumerable<Visit> GetAllVisits();
         IEnumerable<Visit> GetAllAvailableVisits();
+        IEnumerable<Visit> GetAllUsersAvailableVisits(int userId);
         Visit GetVisitById(int id);
 
         void Add(Visit visit);

@@ -72,6 +72,20 @@ namespace FinalProjectApi.Controllers
         }
 
         [Authorize(Roles = Role.User)]
+        [HttpGet("userVisits")]
+        public IActionResult ShowUsersAvailableVisits()
+        {
+            var userId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            var availableVisits = _visitService.GetAllUsersAvailableVisits(userId);
+            if (availableVisits == null)
+            {
+                return NotFound();
+            }
+            return new JsonResult(availableVisits);
+        }
+
+
+        [Authorize(Roles = Role.User)]
         [HttpPut("reserve/{visitId}")]
         public IActionResult ReserveVisit(int visitId)
         {

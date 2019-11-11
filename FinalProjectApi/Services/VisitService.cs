@@ -31,6 +31,13 @@ namespace FinalProjectApi.Services
 
         }
 
+        public IEnumerable<Visit> GetAllUsersAvailableVisits(int userId)
+        {
+            return _context.Visits.Include("VisitDate").Include("VisitLocation").Include("VisitType").Where(v => v.Patient == userId)
+                .OrderByDescending(v => v.VisitDate.Start);
+
+        }
+
         public Visit GetVisitById(int id)
         {
             return _repository.Get(id);
