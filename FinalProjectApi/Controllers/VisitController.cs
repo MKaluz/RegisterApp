@@ -16,8 +16,8 @@ namespace FinalProjectApi.Controllers
     [Route("visit")]
     public class VisitController: Controller
     {
-        private IVisitService _visitService;
-        private IMapper _mapper;
+        private readonly IVisitService _visitService;
+        private readonly IMapper _mapper;
 
         public VisitController(IVisitService visitService, IMapper mapper)
         {
@@ -31,7 +31,7 @@ namespace FinalProjectApi.Controllers
             return new JsonResult(_visitService.GetAllVisits());
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = Role.Admin)]
         [HttpPost()]
         public IActionResult AddVisit([FromBody] VisitDto visitDto)
         {
@@ -44,6 +44,30 @@ namespace FinalProjectApi.Controllers
             _visitService.Add(visitToAdd);
 
             return Ok(visitToAdd);
+        }
+        [Authorize(Roles = Role.Admin)]
+        [HttpDelete("id")]
+        public IActionResult DeleteVisit(int id)
+        {
+            if (!_visitService.VisitExist(id))
+            {
+                return NotFound();
+            }
+
+            var visitToDelete = _visitService.GetVisitById(id);
+            _visitService.Delete(visitToDelete);
+
+            return NoContent();
+        }
+        [Authorize(Roles = Role.User)]
+        [HttpPut("reserve/{visitId}")]
+        public IActionResult ReserveVisit(int visitId)
+        {
+            var userId = HttpContext.User.Identity.Name;
+            var visitToUpdate = _visitService.GetVisitById(visitId);
+            visitToUpdate.Patient = Convert.ToInt32(userId);
+            _visitService.Update(visitToUpdate);
+            return Ok();
         }
     }
 }

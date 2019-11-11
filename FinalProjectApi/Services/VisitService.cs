@@ -19,7 +19,7 @@ namespace FinalProjectApi.Services
             return _repository.GetAll();
         }
 
-        public Visit GetUserById(int id)
+        public Visit GetVisitById(int id)
         {
             return _repository.Get(id);
         }

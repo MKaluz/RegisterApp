@@ -9,7 +9,7 @@ namespace FinalProjectApi.Services
     public interface IVisitService
     {
         IEnumerable<Visit> GetAllVisits();
-        Visit GetUserById(int id);
+        Visit GetVisitById(int id);
         void Add(Visit visit);
         void Update(Visit visit);
         void Delete(Visit visit);
