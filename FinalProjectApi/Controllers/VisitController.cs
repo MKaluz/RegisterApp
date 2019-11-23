@@ -24,7 +24,8 @@ namespace FinalProjectApi.Controllers
             _visitService = visitService;
             _mapper = mapper;
         }
-        [AllowAnonymous]
+        //[Authorize(Roles = Role.User)]
+        [Authorize(Roles = Role.User +" , "+ Role.Admin) ]
         [HttpGet()]
         public IActionResult GetVisits()
         {
