@@ -25,14 +25,16 @@ namespace FinalProjectApi.Controllers
             _mapper = mapper;
         }
         //[Authorize(Roles = Role.User)]
-        [Authorize(Roles = Role.User +" , "+ Role.Admin) ]
+        //[Authorize(Roles = Role.User +" , "+ Role.Admin) ]
+        [AllowAnonymous]
         [HttpGet()]
         public IActionResult GetVisits()
         {
             return new JsonResult(_visitService.GetAllVisits());
         }
 
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
+        [AllowAnonymous]
         [HttpPost()]
         public IActionResult AddVisit([FromBody] VisitDto visitDto)
         {
@@ -60,7 +62,8 @@ namespace FinalProjectApi.Controllers
 
             return NoContent();
         }
-        [Authorize(Roles = Role.User)]
+        //[Authorize(Roles = Role.User)]
+        [AllowAnonymous]
         [HttpGet("available")]
         public IActionResult ShowAvailableVisits()
         {
@@ -69,7 +72,8 @@ namespace FinalProjectApi.Controllers
             {
                 return NotFound();
             }
-            return new JsonResult(availableVisits);
+            var result = _mapper.Map<IEnumerable<Visit>, List<VisitDto>>(availableVisits);
+            return new JsonResult(result);
         }
 
         [Authorize(Roles = Role.User)]

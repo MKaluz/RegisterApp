@@ -8,9 +8,11 @@ namespace FinalProjectApi.Entity
     public class Visit
     {
         public int Id { get; set; }
-        public VisitDate VisitDate { get; set; }
-        public VisitLocation VisitLocation { get; set; }
+        
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int MyProperty { get; set; }
         public int Patient { get; set; }
-        public VisitType VisitType { get; set; }
+        public string VisitType { get; set; }
     }
 }
