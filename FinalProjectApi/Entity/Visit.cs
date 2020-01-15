@@ -11,7 +11,7 @@ namespace FinalProjectApi.Entity
         
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public int MyProperty { get; set; }
+        
         public int Patient { get; set; }
         public string Type { get; set; }
     }

@@ -100,5 +100,15 @@ namespace FinalProjectApi.Controllers
             _visitService.Update(visitToUpdate);
             return Ok();
         }
+
+        [Authorize(Roles = Role.User)]
+        [HttpPut("cancel/{visitId}")]
+        public IActionResult CancelVisit(int visitId)
+        {
+            var visitToUpdate = _visitService.GetVisitById(visitId);
+            visitToUpdate.Patient = 0;
+            _visitService.Update(visitToUpdate);
+            return Ok();
+        }
     }
 }
