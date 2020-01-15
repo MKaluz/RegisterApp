@@ -48,8 +48,7 @@ namespace FinalProjectApi.Controllers
 
             return Ok(visitToAdd);
         }
-        //[Authorize(Roles = Role.Admin)]
-        [AllowAnonymous]
+        [Authorize(Roles = Role.Admin)]
         [HttpDelete("id")]
         public IActionResult DeleteVisit(int id)
         {
@@ -63,7 +62,7 @@ namespace FinalProjectApi.Controllers
 
             return NoContent();
         }
-       //[Authorize(Roles = Role.User)]
+        //[Authorize(Roles = Role.User)]
         [AllowAnonymous]
         [HttpGet("available")]
         public IActionResult ShowAvailableVisits()
@@ -73,11 +72,12 @@ namespace FinalProjectApi.Controllers
             {
                 return NotFound();
             }
-            return new JsonResult(availableVisits);
+            var result = _mapper.Map<IEnumerable<Visit>, List<VisitDto>>(availableVisits);
+            return new JsonResult(result);
         }
 
         [Authorize(Roles = Role.User)]
-        [HttpGet("user-visits")]
+        [HttpGet("userVisits")]
         public IActionResult ShowUsersAvailableVisits()
         {
             var userId = Convert.ToInt32(HttpContext.User.Identity.Name);
@@ -97,15 +97,6 @@ namespace FinalProjectApi.Controllers
             var userId = HttpContext.User.Identity.Name;
             var visitToUpdate = _visitService.GetVisitById(visitId);
             visitToUpdate.Patient = Convert.ToInt32(userId);
-            _visitService.Update(visitToUpdate);
-            return Ok();
-        }
-        [Authorize(Roles = Role.User)]
-        [HttpPut("cancel/{visitId}")]
-        public IActionResult CancelVisit(int visitId)
-        {
-            var visitToUpdate = _visitService.GetVisitById(visitId);
-            visitToUpdate.Patient = 0;
             _visitService.Update(visitToUpdate);
             return Ok();
         }
