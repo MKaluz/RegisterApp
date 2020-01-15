@@ -13,6 +13,6 @@ namespace FinalProjectApi.Entity
         public DateTime EndTime { get; set; }
         public int MyProperty { get; set; }
         public int Patient { get; set; }
-        public string VisitType { get; set; }
+        public string Type { get; set; }
     }
 }
