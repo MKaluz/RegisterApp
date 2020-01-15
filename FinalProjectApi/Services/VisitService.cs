@@ -26,15 +26,15 @@ namespace FinalProjectApi.Services
 
         public IEnumerable<Visit> GetAllAvailableVisits()
         {
-            return _context.Visits.Include("VisitDate").Include("VisitLocation").Include("VisitType").Where(v => v.VisitDate.Start > DateTime.UtcNow && v.Patient == 0)
-                .OrderByDescending(v => v.VisitDate.Start);
+            return _context.Visits.Where(v => v.StartTime > DateTime.UtcNow && v.Patient == 0)
+                .OrderByDescending(v => v.StartTime);
 
         }
 
         public IEnumerable<Visit> GetAllUsersAvailableVisits(int userId)
         {
-            return _context.Visits.Include("VisitDate").Include("VisitLocation").Include("VisitType").Where(v => v.Patient == userId)
-                .OrderByDescending(v => v.VisitDate.Start);
+            return _context.Visits.Where(v => v.Patient == userId)
+                .OrderByDescending(v => v.StartTime);
 
         }
 

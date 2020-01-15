@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinalProjectApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20191109182420_Added-visis")]
-    partial class Addedvisis
+    [Migration("20191124200841_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,8 @@ namespace FinalProjectApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
 
@@ -50,21 +52,15 @@ namespace FinalProjectApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("EndTime");
+
                     b.Property<int>("Patient");
 
-                    b.Property<int?>("VisitDateId");
+                    b.Property<DateTime>("StartTime");
 
-                    b.Property<int?>("VisitLocationId");
-
-                    b.Property<int?>("VisitTypeId");
+                    b.Property<string>("Type");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("VisitDateId");
-
-                    b.HasIndex("VisitLocationId");
-
-                    b.HasIndex("VisitTypeId");
 
                     b.ToTable("Visits");
                 });
@@ -116,21 +112,6 @@ namespace FinalProjectApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VisitTypes");
-                });
-
-            modelBuilder.Entity("FinalProjectApi.Entity.Visit", b =>
-                {
-                    b.HasOne("FinalProjectApi.Entity.VisitDate", "VisitDate")
-                        .WithMany()
-                        .HasForeignKey("VisitDateId");
-
-                    b.HasOne("FinalProjectApi.Entity.VisitLocation", "VisitLocation")
-                        .WithMany()
-                        .HasForeignKey("VisitLocationId");
-
-                    b.HasOne("FinalProjectApi.Entity.VisitType", "VisitType")
-                        .WithMany()
-                        .HasForeignKey("VisitTypeId");
                 });
 #pragma warning restore 612, 618
         }

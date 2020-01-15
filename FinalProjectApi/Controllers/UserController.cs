@@ -69,6 +69,7 @@ namespace FinalProjectApi.Controllers
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
                 Token = tokenString
             });
         }
@@ -103,7 +104,7 @@ namespace FinalProjectApi.Controllers
 
             return Ok(userDtos);
         }
-
+        [Authorize(Roles = Role.User)]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -112,7 +113,7 @@ namespace FinalProjectApi.Controllers
 
             return Ok(userDto);
         }
-
+        [Authorize(Roles = Role.User)]
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] UserDto userDto)
         {
@@ -133,7 +134,7 @@ namespace FinalProjectApi.Controllers
                 return BadRequest(new {message = ex.Message});
             }
         }
-
+        [Authorize(Roles = Role.User)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

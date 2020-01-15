@@ -25,14 +25,16 @@ namespace FinalProjectApi.Controllers
             _mapper = mapper;
         }
         //[Authorize(Roles = Role.User)]
-        [Authorize(Roles = Role.User +" , "+ Role.Admin) ]
+        //[Authorize(Roles = Role.User +" , "+ Role.Admin) ]
+        [AllowAnonymous]
         [HttpGet()]
         public IActionResult GetVisits()
         {
             return new JsonResult(_visitService.GetAllVisits());
         }
 
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
+        [AllowAnonymous]
         [HttpPost()]
         public IActionResult AddVisit([FromBody] VisitDto visitDto)
         {
@@ -46,7 +48,8 @@ namespace FinalProjectApi.Controllers
 
             return Ok(visitToAdd);
         }
-        [Authorize(Roles = Role.Admin)]
+        //[Authorize(Roles = Role.Admin)]
+        [AllowAnonymous]
         [HttpDelete("id")]
         public IActionResult DeleteVisit(int id)
         {
@@ -60,7 +63,8 @@ namespace FinalProjectApi.Controllers
 
             return NoContent();
         }
-        [Authorize(Roles = Role.User)]
+       //[Authorize(Roles = Role.User)]
+        [AllowAnonymous]
         [HttpGet("available")]
         public IActionResult ShowAvailableVisits()
         {
@@ -73,7 +77,7 @@ namespace FinalProjectApi.Controllers
         }
 
         [Authorize(Roles = Role.User)]
-        [HttpGet("userVisits")]
+        [HttpGet("user-visits")]
         public IActionResult ShowUsersAvailableVisits()
         {
             var userId = Convert.ToInt32(HttpContext.User.Identity.Name);
@@ -93,6 +97,15 @@ namespace FinalProjectApi.Controllers
             var userId = HttpContext.User.Identity.Name;
             var visitToUpdate = _visitService.GetVisitById(visitId);
             visitToUpdate.Patient = Convert.ToInt32(userId);
+            _visitService.Update(visitToUpdate);
+            return Ok();
+        }
+        [Authorize(Roles = Role.User)]
+        [HttpPut("cancel/{visitId}")]
+        public IActionResult CancelVisit(int visitId)
+        {
+            var visitToUpdate = _visitService.GetVisitById(visitId);
+            visitToUpdate.Patient = 0;
             _visitService.Update(visitToUpdate);
             return Ok();
         }
