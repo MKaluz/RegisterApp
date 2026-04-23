@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="RegisterApp.Api/RegisterApp.Api.csproj" />
+  <Project Path="RegisterApp.Application/RegisterApp.Application.csproj" />
+  <Project Path="RegisterApp.Domain/RegisterApp.Domain.csproj" />
+  <Project Path="RegisterApp.Infrastructure/RegisterApp.Infrastructure.csproj" />
+</Solution>
