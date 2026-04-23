@@ -175,7 +175,6 @@ This architecture follows SOLID principles:
 - **.NET 8.0**: Target framework for all projects
 - **ASP.NET Core**: Web API framework
 - **Entity Framework Core**: ORM for data access (to be configured)
-- **AutoMapper**: Object-to-object mapping (legacy)
 - **Swagger/OpenAPI**: API documentation
 
 ## Getting Started
