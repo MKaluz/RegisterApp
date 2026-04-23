@@ -1,0 +1,70 @@
+@RegisterApp.Api_HostAddress = http://localhost:5185
+
+### Health Check
+GET {{RegisterApp.Api_HostAddress}}/api/health
+Accept: application/json
+
+###
+
+### User Authentication
+POST {{RegisterApp.Api_HostAddress}}/api/users/authenticate
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+###
+
+### User Registration
+POST {{RegisterApp.Api_HostAddress}}/api/users/register
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "username": "johndoe",
+  "email": "john.doe@example.com",
+  "password": "SecurePass123"
+}
+
+###
+
+### Get All Users
+GET {{RegisterApp.Api_HostAddress}}/api/users
+Accept: application/json
+
+###
+
+### Get User by ID
+GET {{RegisterApp.Api_HostAddress}}/api/users/1
+Accept: application/json
+
+###
+
+### Get All Visits
+GET {{RegisterApp.Api_HostAddress}}/api/visits
+Accept: application/json
+
+###
+
+### Get Available Visits
+GET {{RegisterApp.Api_HostAddress}}/api/visits/available
+Accept: application/json
+
+###
+
+### Add New Visit
+POST {{RegisterApp.Api_HostAddress}}/api/visits
+Content-Type: application/json
+
+{
+  "startTime": "2026-05-01T10:00:00",
+  "endTime": "2026-05-01T11:00:00",
+  "patient": 0,
+  "type": "General Checkup"
+}
+
+###
+
