@@ -72,9 +72,9 @@ public class VisitsController : ControllerBase
     /// Get user's visits
     /// </summary>
     [HttpGet("user")]
-    public IActionResult ShowUsersVisits()
+    public IActionResult GetUserVisits()
     {
-        _logger.LogInformation("ShowUsersVisits endpoint called");
+        _logger.LogInformation("GetUserVisits endpoint called");
         return Ok(new List<VisitDto>());
     }
 

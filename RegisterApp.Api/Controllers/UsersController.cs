@@ -21,15 +21,17 @@ public class UsersController : ControllerBase
     /// </summary>
     [AllowAnonymous]
     [HttpPost("authenticate")]
-    public IActionResult Authenticate([FromBody] UserDto userDto)
+    public IActionResult Authenticate([FromBody] AuthenticationRequest request)
     {
         // TODO: Implement authentication logic
-        _logger.LogInformation("Authenticate endpoint called for user: {Username}", userDto.Username);
+        // Note: Username is sanitized for logging to prevent log forging
+        var sanitizedUsername = request.Username?.Replace("\n", "").Replace("\r", "");
+        _logger.LogInformation("Authenticate endpoint called for user: {Username}", sanitizedUsername);
         
         return Ok(new
         {
             Message = "Authentication endpoint - implementation pending",
-            Username = userDto.Username
+            Username = sanitizedUsername
         });
     }
 
@@ -38,15 +40,17 @@ public class UsersController : ControllerBase
     /// </summary>
     [AllowAnonymous]
     [HttpPost("register")]
-    public IActionResult Register([FromBody] UserDto userDto)
+    public IActionResult Register([FromBody] RegisterRequest request)
     {
         // TODO: Implement registration logic
-        _logger.LogInformation("Register endpoint called for user: {Username}", userDto.Username);
+        // Note: Username is sanitized for logging to prevent log forging
+        var sanitizedUsername = request.Username?.Replace("\n", "").Replace("\r", "");
+        _logger.LogInformation("Register endpoint called for user: {Username}", sanitizedUsername);
         
         return Ok(new
         {
             Message = "Registration endpoint - implementation pending",
-            Username = userDto.Username
+            Username = sanitizedUsername
         });
     }
 
@@ -99,10 +103,6 @@ public class UsersController : ControllerBase
         // TODO: Implement delete user logic
         _logger.LogInformation("Delete endpoint called for user ID: {Id}", id);
         
-        return Ok(new
-        {
-            Message = "Delete endpoint - implementation pending",
-            Id = id
-        });
+        return NoContent();
     }
 }
