@@ -59,7 +59,7 @@ RegisterApp.Application/
 │   └── DTOs/
 ├── Common/
 │   ├── Interfaces/              # Application service interfaces
-│   └── Mappings/                # AutoMapper profiles
+│   └── Mappings/                # Object mapping profiles
 └── Behaviors/                   # Cross-cutting concerns (validation, logging)
 ```
 
