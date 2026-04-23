@@ -53,7 +53,8 @@ public sealed class Password : ValueObject
     private static bool HasUpperCase(string password) => password.Any(char.IsUpper);
     private static bool HasLowerCase(string password) => password.Any(char.IsLower);
     private static bool HasDigit(string password) => password.Any(char.IsDigit);
-    private static bool HasSpecialChar(string password) => password.Any(c => !char.IsLetterOrDigit(c));
+    private static bool HasSpecialChar(string password) => 
+        password.Any(c => char.IsPunctuation(c) || char.IsSymbol(c));
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

@@ -24,7 +24,12 @@ public abstract class ValueObject
 
     public override int GetHashCode()
     {
-        return GetEqualityComponents()
+        var components = GetEqualityComponents().ToList();
+        
+        if (components.Count == 0)
+            return 0;
+            
+        return components
             .Select(x => x?.GetHashCode() ?? 0)
             .Aggregate((x, y) => x ^ y);
     }
